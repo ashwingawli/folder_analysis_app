@@ -1,6 +1,7 @@
 import streamlit as st
 import os
 import PyPDF2
+import nltk
 from openai import AzureOpenAI
 from dotenv import load_dotenv
 import pandas as pd
@@ -26,7 +27,8 @@ def get_pdf_text(pdf_path):
         text = ""
         for page in pdf_reader.pages:
             text += page.extract_text()
-    return text
+        return text
+
 
 def summarize_text(text, max_tokens=150):
     response = client.chat.completions.create(
